@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_metadata_durations",
+  "info": {
+    "displayName": "Duration",
+    "description": "Estimated time to complete content"
+  },
+  "options": {},
+  "attributes": {
+    "estimatedMinutes": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "max": 480
+    },
+    "unit": {
+      "type": "enumeration",
+      "enum": ["minutes", "hours", "days"],
+      "default": "minutes"
+    }
+  }
+}

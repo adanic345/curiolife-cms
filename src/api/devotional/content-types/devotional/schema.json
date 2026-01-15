@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "devotionals",
+  "info": {
+    "singularName": "devotional",
+    "pluralName": "devotionals",
+    "displayName": "Devotional",
+    "description": "Daily spiritual reflection and meditation content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "subtitle": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "scriptureReferences": {
+      "type": "component",
+      "repeatable": true,
+      "component": "metadata.scripture-reference",
+      "required": true
+    },
+    "bodyContent": {
+      "type": "richtext",
+      "required": true
+    },
+    "reflection": {
+      "type": "richtext"
+    },
+    "prayer": {
+      "type": "text"
+    },
+    "themes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "metadata.theme"
+    },
+    "difficulty": {
+      "type": "component",
+      "repeatable": false,
+      "component": "metadata.difficulty",
+      "required": true
+    },
+    "duration": {
+      "type": "component",
+      "repeatable": false,
+      "component": "metadata.duration",
+      "required": true
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "publishDate": {
+      "type": "date"
+    },
+    "tags": {
+      "type": "json"
+    }
+  }
+}

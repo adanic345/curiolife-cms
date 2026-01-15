@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_content_rich_text_blocks",
+  "info": {
+    "displayName": "Rich Text Block",
+    "description": "Formatted text content with markdown support"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

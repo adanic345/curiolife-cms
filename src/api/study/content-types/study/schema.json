@@ -1,0 +1,81 @@
+{
+  "kind": "collectionType",
+  "collectionName": "studies",
+  "info": {
+    "singularName": "study",
+    "pluralName": "studies",
+    "displayName": "Study",
+    "description": "Multi-session spiritual learning tracks"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 1000
+    },
+    "overview": {
+      "type": "richtext"
+    },
+    "sessions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "content.study-session",
+      "required": true
+    },
+    "themes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "metadata.theme"
+    },
+    "difficulty": {
+      "type": "component",
+      "repeatable": false,
+      "component": "metadata.difficulty",
+      "required": true
+    },
+    "totalDuration": {
+      "type": "component",
+      "repeatable": false,
+      "component": "metadata.duration",
+      "required": true
+    },
+    "objectives": {
+      "type": "json"
+    },
+    "prerequisites": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "completionCriteria": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "author": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "tags": {
+      "type": "json"
+    }
+  }
+}

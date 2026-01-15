@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_content_study_sessions",
+  "info": {
+    "displayName": "Study Session",
+    "description": "Individual session within a study track"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "scriptureReferences": {
+      "type": "component",
+      "repeatable": true,
+      "component": "metadata.scripture-reference"
+    },
+    "order": {
+      "type": "integer",
+      "required": true,
+      "default": 1,
+      "min": 1
+    },
+    "estimatedMinutes": {
+      "type": "integer",
+      "min": 1,
+      "default": 15
+    }
+  }
+}

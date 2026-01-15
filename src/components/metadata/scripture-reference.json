@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_metadata_scripture_references",
+  "info": {
+    "displayName": "Scripture Reference",
+    "description": "Biblical reference for content grounding"
+  },
+  "options": {},
+  "attributes": {
+    "book": {
+      "type": "string",
+      "required": true,
+      "maxLength": 50
+    },
+    "chapter": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "verseStart": {
+      "type": "integer",
+      "min": 1
+    },
+    "verseEnd": {
+      "type": "integer",
+      "min": 1
+    },
+    "translation": {
+      "type": "string",
+      "default": "NIV",
+      "maxLength": 20
+    },
+    "displayText": {
+      "type": "string",
+      "maxLength": 100
+    }
+  }
+}

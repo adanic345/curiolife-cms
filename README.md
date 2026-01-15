@@ -1,61 +1,140 @@
-# 🚀 Getting started with Strapi
+# CurioLife Backend CMS
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+This is the backend content management system for CurioLife, a faith-based spiritual engagement platform. Built on Strapi 5.28.0.
 
-### `develop`
+## What This Is
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+This Strapi instance manages:
+- **Spiritual Content**: Devotionals, prayers, studies, and challenges
+- **Editorial Workflow**: Draft/review/publish lifecycle
+- **Content Metadata**: Themes, difficulty levels, scripture references, duration
+- **API Delivery**: Clean, stable APIs for mobile app consumption
 
+**Important**: This is backend-only. No business logic, AI, or personalization happens here.
+
+## Quick Start
+
+### 1. Install Dependencies
+
+```bash
+npm install
 ```
+
+### 2. Set Up Environment
+
+Copy `.env.example` to `.env` and configure:
+
+```bash
+cp .env.example .env
+```
+
+### 3. Start Development Server
+
+```bash
 npm run develop
-# or
-yarn develop
 ```
 
-### `start`
+This will:
+- Start Strapi on http://localhost:1337
+- Launch admin panel at http://localhost:1337/admin
+- Prompt you to create first admin user
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+### 4. Configure Roles (First Time Only)
+
+After creating your admin account:
+
+1. Go to **Settings → Users & Permissions → Roles**
+2. Create these roles:
+   - **Editor**: Can create and edit drafts
+   - **Reviewer**: Can approve/publish content
+   - **Admin**: Full access
+
+See [CONTENT_MODEL.md](CONTENT_MODEL.md) for detailed role configuration.
+
+## Content Model
+
+See [CONTENT_MODEL.md](CONTENT_MODEL.md) for complete documentation of:
+- Content types (Devotional, Prayer, Study, Challenge)
+- Shared components (themes, difficulty, scripture references)
+- API conventions and filtering
+- Editorial workflow
+- Extension guidelines
+
+## Available Commands
+
+### `npm run develop`
+Start development server with hot reload
+- Admin panel: http://localhost:1337/admin
+- API base: http://localhost:1337/api
+
+### `npm run build`
+Build admin panel for production
+
+### `npm run start`
+Start production server (requires build first)
+
+### `npm run seed:example`
+Seed database with example content (to be implemented)
+
+## Project Structure
 
 ```
-npm run start
-# or
-yarn start
+curiolife-cms/
+├── config/              # Strapi configuration
+├── src/
+│   ├── api/            # Content types (devotional, prayer, study, challenge)
+│   ├── components/     # Reusable components (metadata, content)
+│   └── extensions/     # Custom extensions (keep minimal)
+├── database/           # SQLite database (dev only)
+├── public/             # Static assets
+└── CONTENT_MODEL.md    # Content architecture documentation
 ```
 
-### `build`
+## Core Principles
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+1. **Strapi-native features first** - Use built-in functionality before custom code
+2. **Strongly typed schemas** - All content follows explicit schemas
+3. **Composable components** - Reuse metadata and content blocks
+4. **Draft/publish workflow** - All content types support editorial review
+5. **No business logic** - Keep Strapi as content source of truth only
 
+## API Access
+
+All published content is accessible via REST API:
+
+- Devotionals: `/api/devotionals`
+- Prayers: `/api/prayers`
+- Studies: `/api/studies`
+- Challenges: `/api/challenges`
+
+**Example**: Get beginner devotionals under 15 minutes:
 ```
-npm run build
-# or
-yarn build
+GET /api/devotionals?filters[difficulty][level][$eq]=Beginner&filters[duration][estimatedMinutes][$lte]=15
 ```
 
-## ⚙️ Deployment
+See [Strapi documentation](https://docs.strapi.io/dev-docs/api/rest/filters-locale-publication) for filtering syntax.
 
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
+## Production Deployment
 
-```
-yarn strapi deploy
-```
+Before deploying to production:
 
-## 📚 Learn more
+1. **Switch to PostgreSQL/MySQL**: Edit [config/database.js](config/database.js)
+2. **Set environment variables**: `HOST`, `PORT`, `APP_KEYS`, `API_TOKEN_SALT`, `ADMIN_JWT_SECRET`, `TRANSFER_TOKEN_SALT`, `JWT_SECRET`
+3. **Build admin panel**: `npm run build`
+4. **Start production server**: `npm run start`
 
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
+See [Strapi deployment docs](https://docs.strapi.io/dev-docs/deployment) for platform-specific guides.
 
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
+## Resources
 
-## ✨ Community
+- [Strapi Documentation](https://docs.strapi.io)
+- [Content Model Documentation](CONTENT_MODEL.md)
+- [Strapi REST API Reference](https://docs.strapi.io/dev-docs/api/rest)
 
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
+## Support
 
----
+For CurioLife-specific questions, refer to internal documentation.
 
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+For Strapi questions:
+- [Strapi Discord](https://discord.strapi.io)
+- [Strapi Forum](https://forum.strapi.io/)

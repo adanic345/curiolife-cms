@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_metadata_themes",
+  "info": {
+    "displayName": "Theme",
+    "description": "Spiritual or topical theme categorization"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 500
+    }
+  }
+}
