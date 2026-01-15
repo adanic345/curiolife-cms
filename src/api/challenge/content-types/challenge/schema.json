@@ -1,0 +1,112 @@
+{
+  "kind": "collectionType",
+  "collectionName": "challenges",
+  "info": {
+    "singularName": "challenge",
+    "pluralName": "challenges",
+    "displayName": "Challenge",
+    "description": "Seasonal or time-bound spiritual engagement campaigns"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 1000
+    },
+    "detailedDescription": {
+      "type": "richtext"
+    },
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date",
+      "required": true
+    },
+    "challengeType": {
+      "type": "enumeration",
+      "enum": [
+        "Seasonal",
+        "Time-Bound",
+        "Open-Ended",
+        "Recurring"
+      ],
+      "required": true,
+      "default": "Time-Bound"
+    },
+    "participationRules": {
+      "type": "richtext"
+    },
+    "associatedDevotionals": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::devotional.devotional"
+    },
+    "associatedPrayers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::prayer.prayer"
+    },
+    "associatedStudies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::study.study"
+    },
+    "themes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "metadata.theme"
+    },
+    "difficulty": {
+      "type": "component",
+      "repeatable": false,
+      "component": "metadata.difficulty"
+    },
+    "estimatedCommitment": {
+      "type": "component",
+      "repeatable": false,
+      "component": "metadata.duration"
+    },
+    "goals": {
+      "type": "json"
+    },
+    "rewards": {
+      "type": "text",
+      "maxLength": 500
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "bannerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "json"
+    }
+  }
+}

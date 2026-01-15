@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_metadata_difficulties",
+  "info": {
+    "displayName": "Difficulty Level",
+    "description": "Content complexity and audience suitability"
+  },
+  "options": {},
+  "attributes": {
+    "level": {
+      "type": "enumeration",
+      "enum": ["Beginner", "Intermediate", "Advanced"],
+      "required": true,
+      "default": "Beginner"
+    },
+    "notes": {
+      "type": "text",
+      "maxLength": 200
+    }
+  }
+}
