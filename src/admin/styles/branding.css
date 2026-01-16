@@ -1,0 +1,199 @@
+/* CurioLife Brand Styling */
+
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Gotham:wght@400;500;700&display=swap');
+
+:root {
+  /* CurioLife Primary Colors */
+  --curiolife-teal: #23B1A0;
+  --curiolife-coral: #FD6B41;
+  --curiolife-yellow: #F4D516;
+  --curiolife-blue: #3399CC;
+  --curiolife-purple: #823C9A;
+  --curiolife-gray: #505050;
+  --curiolife-black: #000000;
+  
+  /* Primary brand color - Teal */
+  --primary-color: #23B1A0;
+  --primary-dark: #1A9A8D;
+  --primary-light: #A3EBE5;
+  
+  /* Secondary brand color - Coral */
+  --secondary-color: #FD6B41;
+  --secondary-dark: #E55A2B;
+  --secondary-light: #FFCFC1;
+}
+
+/* Apply Gotham font globally */
+body,
+* {
+  font-family: "Gotham", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif !important;
+}
+
+/* Headlines - All Round Gothic Book */
+h1, h2, h3, h4, h5, h6,
+.strapi-admin [class*="Header"],
+.strapi-admin [class*="Title"] {
+  font-family: "All Round Gothic", "Gotham", sans-serif !important;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* Primary button styling */
+.strapi-admin button[type="submit"],
+.strapi-admin [class*="Button"][class*="primary"] {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.strapi-admin button[type="submit"]:hover,
+.strapi-admin [class*="Button"][class*="primary"]:hover {
+  background-color: var(--primary-dark) !important;
+  border-color: var(--primary-dark) !important;
+}
+
+/* Links and accents */
+.strapi-admin a,
+.strapi-admin [class*="Link"] {
+  color: var(--primary-color) !important;
+}
+
+.strapi-admin a:hover,
+.strapi-admin [class*="Link"]:hover {
+  color: var(--primary-dark) !important;
+}
+
+/* Table highlights */
+.strapi-admin table tbody tr:hover {
+  background-color: rgba(35, 177, 160, 0.05) !important;
+}
+
+/* Input focus states */
+.strapi-admin input:focus,
+.strapi-admin textarea:focus,
+.strapi-admin select:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px rgba(35, 177, 160, 0.1) !important;
+}
+
+/* Success states - use teal */
+.strapi-admin [class*="success"],
+.strapi-admin [class*="Success"] {
+  color: var(--primary-color) !important;
+}
+
+/* Warning states - use coral */
+.strapi-admin [class*="warning"],
+.strapi-admin [class*="Warning"] {
+  color: var(--secondary-color) !important;
+}
+
+/* Custom badge styling */
+.strapi-admin [class*="Badge"] {
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.strapi-admin [class*="Badge"][class*="primary"] {
+  background-color: rgba(35, 177, 160, 0.1);
+  color: var(--primary-dark);
+  border: 1px solid var(--primary-color);
+}
+
+.strapi-admin [class*="Badge"][class*="secondary"] {
+  background-color: rgba(253, 107, 65, 0.1);
+  color: var(--secondary-dark);
+  border: 1px solid var(--secondary-color);
+}
+
+/* Sidebar customization */
+.strapi-admin nav,
+.strapi-admin aside {
+  background-color: #1A1A1A;
+  color: #FFFFFF;
+}
+
+.strapi-admin nav a:hover,
+.strapi-admin aside a:hover {
+  background-color: rgba(35, 177, 160, 0.1);
+  color: var(--primary-light);
+}
+
+.strapi-admin nav a.active,
+.strapi-admin aside a.active {
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+  border-left: 4px solid var(--secondary-color);
+}
+
+/* Header styling */
+.strapi-admin header {
+  background: linear-gradient(135deg, #1A1A1A 0%, #0F0F0F 100%);
+  border-bottom: 3px solid var(--primary-color);
+}
+
+/* Card and box styling */
+.strapi-admin [class*="Card"],
+.strapi-admin [class*="Box"],
+.strapi-admin [class*="Panel"] {
+  border-radius: 6px;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 2px 8px rgba(35, 177, 160, 0.08);
+}
+
+/* Divider customization */
+.strapi-admin hr,
+.strapi-admin [class*="Divider"] {
+  border-color: var(--primary-color);
+  opacity: 0.3;
+}
+
+/* Loading states */
+.strapi-admin [class*="Loader"],
+.strapi-admin [class*="Spinner"] {
+  color: var(--primary-color) !important;
+}
+
+/* Animation for interactive elements */
+.strapi-admin button,
+.strapi-admin a,
+.strapi-admin input,
+.strapi-admin select,
+.strapi-admin textarea {
+  transition: all 0.3s ease;
+}
+
+/* Tooltip styling */
+.strapi-admin [class*="Tooltip"] {
+  background-color: #1A1A1A;
+  color: #FFFFFF;
+  border: 1px solid var(--primary-color);
+}
+
+/* Modal overlay */
+.strapi-admin [class*="Modal"],
+.strapi-admin [class*="Dialog"] {
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(35, 177, 160, 0.15);
+}
+
+/* Custom scrollbar */
+.strapi-admin ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.strapi-admin ::-webkit-scrollbar-track {
+  background: #F5F5F5;
+}
+
+.strapi-admin ::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+.strapi-admin ::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}

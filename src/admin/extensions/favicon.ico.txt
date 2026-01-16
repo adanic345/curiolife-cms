@@ -1,0 +1,3 @@
+# Favicon placeholder
+# To add a real favicon, replace this file with favicon.ico
+# You can generate one at https://favicon.io/
