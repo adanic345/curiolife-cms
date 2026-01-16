@@ -7,6 +7,7 @@
     "build": "strapi build",
     "deploy": "strapi deploy",
     "develop": "strapi develop",
+    "seed": "node ./scripts/seed-curiolife.js",
     "seed:example": "node ./scripts/seed.js",
     "start": "strapi start",
     "strapi": "strapi"
