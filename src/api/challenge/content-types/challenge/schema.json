@@ -14,8 +14,8 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true,
-      "maxLength": 200
+      "maxLength": 200,
+      "required": true
     },
     "slug": {
       "type": "uid",
@@ -24,8 +24,8 @@
     },
     "description": {
       "type": "text",
-      "required": true,
-      "maxLength": 1000
+      "maxLength": 1000,
+      "required": true
     },
     "detailedDescription": {
       "type": "richtext"
@@ -40,14 +40,14 @@
     },
     "challengeType": {
       "type": "enumeration",
+      "required": true,
+      "default": "Time-Bound",
       "enum": [
         "Seasonal",
         "Time-Bound",
         "Open-Ended",
         "Recurring"
-      ],
-      "required": true,
-      "default": "Time-Bound"
+      ]
     },
     "participationRules": {
       "type": "richtext"
@@ -69,18 +69,18 @@
     },
     "themes": {
       "type": "component",
-      "repeatable": true,
-      "component": "metadata.theme"
+      "component": "metadata.theme",
+      "repeatable": true
     },
     "difficulty": {
       "type": "component",
-      "repeatable": false,
-      "component": "metadata.difficulty"
+      "component": "metadata.difficulty",
+      "repeatable": false
     },
     "estimatedCommitment": {
       "type": "component",
-      "repeatable": false,
-      "component": "metadata.duration"
+      "component": "metadata.duration",
+      "repeatable": false
     },
     "goals": {
       "type": "json"
@@ -93,13 +93,17 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "bannerImage": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "isActive": {
       "type": "boolean",
@@ -107,6 +111,15 @@
     },
     "tags": {
       "type": "json"
+    },
+    "body_content": {
+      "type": "customField",
+      "customField": "plugin::ckeditor.CKEditor",
+      "options": {
+        "output": "HTML",
+        "preset": "standard",
+        "licenseKey": "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3Njk5MDM5OTksImp0aSI6IjFjYmQxZGQ1LTBmZmUtNGRmNS1hNmY0LTMwMzg4MDBiOWQ0NiIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjBkZGQzOTRmIn0.ZoY1GQBUoJJO7Tijm2BTzqiIzRtstY_NoneJuisvZSeI56YyZEnC1OvmE9s299M8Dc4WQQYV8FZC5wbySJ1lJQ"
+      }
     }
   }
 }

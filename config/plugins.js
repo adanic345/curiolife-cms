@@ -1,4 +1,9 @@
 module.exports = ({ env }) => ({
+  // CKEditor Plugin Configuration
+  ckeditor: {
+    enabled: true,
+  },
+
   // GraphQL Plugin Configuration
   graphql: {
     enabled: true,
