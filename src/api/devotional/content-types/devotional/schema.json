@@ -72,9 +72,6 @@
     },
     "tags": {
       "type": "json"
-    },
-    "bodyTest": {
-      "type": "blocks"
     }
   }
 }
