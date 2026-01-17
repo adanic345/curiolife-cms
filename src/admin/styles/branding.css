@@ -197,3 +197,221 @@ h1, h2, h3, h4, h5, h6,
 .strapi-admin ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-dark);
 }
+
+/* ============================================ */
+/* WordPress-Style Edit View Layout */
+/* ============================================ */
+
+/* Edit view container - create WordPress-like layout */
+[data-strapi-header="true"] ~ div > div > div {
+  display: flex !important;
+  gap: 24px !important;
+  max-width: none !important;
+}
+
+/* Main content area (left side - like WordPress post editor) */
+main[aria-labelledby] > div > div > form > div:first-child {
+  flex: 1 1 65% !important;
+  max-width: 65% !important;
+  background: #FFFFFF !important;
+  padding: 24px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Metadata sidebar (right side - like WordPress publish/categories panel) */
+main[aria-labelledby] > div > div > form > div:last-child {
+  flex: 0 0 320px !important;
+  max-width: 320px !important;
+  position: sticky !important;
+  top: 80px !important;
+  align-self: flex-start !important;
+  background: #FFFFFF !important;
+  padding: 20px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  max-height: calc(100vh - 100px) !important;
+  overflow-y: auto !important;
+}
+
+/* Ensure metadata fields stack vertically in sidebar */
+main[aria-labelledby] > div > div > form > div:last-child > div {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+/* Style metadata field containers */
+main[aria-labelledby] > div > div > form > div:last-child [role="tabpanel"],
+main[aria-labelledby] > div > div > form > div:last-child > div > div {
+  width: 100% !important;
+  margin-bottom: 12px !important;
+}
+
+/* Metadata section headers (like WordPress "Publish", "Categories") */
+main[aria-labelledby] > div > div > form > div:last-child h3,
+main[aria-labelledby] > div > div > form > div:last-child h4 {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #1A1A1A !important;
+  margin-bottom: 8px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 1px solid #E0E0E0 !important;
+}
+
+/* Input fields in sidebar should be full width */
+main[aria-labelledby] > div > div > form > div:last-child input,
+main[aria-labelledby] > div > div > form > div:last-child select,
+main[aria-labelledby] > div > div > form > div:last-child textarea {
+  width: 100% !important;
+}
+
+/* Component repeater fields (themes, tags) in sidebar */
+main[aria-labelledby] > div > div > form > div:last-child [data-strapi-field-repeater] {
+  width: 100% !important;
+}
+
+/* Fix date pickers in sidebar */
+main[aria-labelledby] > div > div > form > div:last-child [data-strapi-field-type="date"],
+main[aria-labelledby] > div > div > form > div:last-child [data-strapi-field-type="datetime"] {
+  width: 100% !important;
+}
+
+/* Media fields (featured image) in sidebar */
+main[aria-labelledby] > div > div > form > div:last-child [data-strapi-field-type="media"] {
+  width: 100% !important;
+}
+
+/* WordPress-style publish panel */
+main[aria-labelledby] > div > div > form > div:last-child > div:first-child {
+  background: #F9F9F9 !important;
+  border: 1px solid #E0E0E0 !important;
+  border-radius: 4px !important;
+  padding: 16px !important;
+  margin-bottom: 16px !important;
+}
+
+/* Main content fields - full width in left panel */
+main[aria-labelledby] > div > div > form > div:first-child > div {
+  width: 100% !important;
+  margin-bottom: 24px !important;
+}
+
+/* Title field styling (WordPress-like large title) */
+main[aria-labelledby] > div > div > form > div:first-child input[name*="title"],
+main[aria-labelledby] > div > div > form > div:first-child input[name*="name"] {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  padding: 16px !important;
+  border: none !important;
+  border-bottom: 1px solid #E0E0E0 !important;
+  border-radius: 0 !important;
+  margin-bottom: 16px !important;
+}
+
+main[aria-labelledby] > div > div > form > div:first-child input[name*="title"]:focus,
+main[aria-labelledby] > div > div > form > div:first-child input[name*="name"]:focus {
+  border-bottom-color: var(--primary-color) !important;
+  box-shadow: none !important;
+}
+
+/* Subtitle field */
+main[aria-labelledby] > div > div > form > div:first-child input[name*="subtitle"] {
+  font-size: 18px !important;
+  padding: 12px !important;
+  border: none !important;
+  border-bottom: 1px solid #E0E0E0 !important;
+  border-radius: 0 !important;
+  color: #666 !important;
+}
+
+/* Rich text editors - give them breathing room */
+main[aria-labelledby] > div > div > form > div:first-child [data-strapi-field-type="richtext"],
+main[aria-labelledby] > div > div > form > div:first-child [data-strapi-field-type="wysiwyg"] {
+  min-height: 300px !important;
+  margin-bottom: 24px !important;
+}
+
+/* Component fields in main area (scripture references, steps, sessions) */
+main[aria-labelledby] > div > div > form > div:first-child [data-strapi-field-repeater] {
+  width: 100% !important;
+  background: #F9F9F9 !important;
+  padding: 16px !important;
+  border-radius: 4px !important;
+  margin-bottom: 24px !important;
+}
+
+/* Component headers */
+main[aria-labelledby] > div > div > form > div:first-child [data-strapi-field-repeater] h3 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #1A1A1A !important;
+  margin-bottom: 12px !important;
+}
+
+/* Buttons in sidebar */
+main[aria-labelledby] > div > div > form > div:last-child button {
+  width: 100% !important;
+  margin-top: 8px !important;
+}
+
+/* Save/Publish buttons at top right (WordPress-style) */
+[data-strapi-header="true"] button[type="submit"] {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  font-weight: 600 !important;
+  padding: 8px 24px !important;
+}
+
+/* Responsive - stack on smaller screens */
+@media (max-width: 1200px) {
+  main[aria-labelledby] > div > div > form > div:first-child {
+    max-width: 100% !important;
+  }
+
+  main[aria-labelledby] > div > div > form > div:last-child {
+    position: relative !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+
+  [data-strapi-header="true"] ~ div > div > div {
+    flex-direction: column !important;
+  }
+}
+
+/* Clean up grid layouts in main content */
+main[aria-labelledby] > div > div > form > div:first-child > div[class*="Grid"] {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+}
+
+/* Ensure all fields in main content are full width */
+main[aria-labelledby] > div > div > form > div:first-child > div[class*="Grid"] > div {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Field labels in main content */
+main[aria-labelledby] > div > div > form > div:first-child label {
+  font-weight: 600 !important;
+  color: #1A1A1A !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+/* Field labels in sidebar */
+main[aria-labelledby] > div > div > form > div:last-child label {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #505050 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Dividers between sidebar sections */
+main[aria-labelledby] > div > div > form > div:last-child > div > div + div {
+  border-top: 1px solid #E0E0E0 !important;
+  padding-top: 16px !important;
+  margin-top: 16px !important;
+}
