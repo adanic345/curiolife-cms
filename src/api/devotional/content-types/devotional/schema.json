@@ -14,8 +14,8 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true,
-      "maxLength": 200
+      "maxLength": 200,
+      "required": true
     },
     "subtitle": {
       "type": "string",
@@ -28,8 +28,8 @@
     },
     "scriptureReferences": {
       "type": "component",
-      "repeatable": true,
       "component": "metadata.scripture-reference",
+      "repeatable": true,
       "required": true
     },
     "bodyContent": {
@@ -44,32 +44,37 @@
     },
     "themes": {
       "type": "component",
-      "repeatable": true,
-      "component": "metadata.theme"
+      "component": "metadata.theme",
+      "repeatable": true
     },
     "difficulty": {
       "type": "component",
-      "repeatable": false,
       "component": "metadata.difficulty",
+      "repeatable": false,
       "required": true
     },
     "duration": {
       "type": "component",
-      "repeatable": false,
       "component": "metadata.duration",
+      "repeatable": false,
       "required": true
     },
     "featuredImage": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "publishDate": {
       "type": "date"
     },
     "tags": {
       "type": "json"
+    },
+    "bodyTest": {
+      "type": "blocks"
     }
   }
 }
