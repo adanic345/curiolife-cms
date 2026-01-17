@@ -455,6 +455,15 @@ export interface ApiChallengeChallenge extends Struct.CollectionTypeSchema {
       'api::study.study'
     >;
     bannerImage: Schema.Attribute.Media<'images'>;
+    body_content: Schema.Attribute.RichText &
+      Schema.Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3Njk5MDM5OTksImp0aSI6IjFjYmQxZGQ1LTBmZmUtNGRmNS1hNmY0LTMwMzg4MDBiOWQ0NiIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjBkZGQzOTRmIn0.ZoY1GQBUoJJO7Tijm2BTzqiIzRtstY_NoneJuisvZSeI56YyZEnC1OvmE9s299M8Dc4WQQYV8FZC5wbySJ1lJQ';
+          output: 'HTML';
+          preset: 'standard';
+        }
+      >;
     challengeType: Schema.Attribute.Enumeration<
       ['Seasonal', 'Time-Bound', 'Open-Ended', 'Recurring']
     > &
