@@ -515,6 +515,7 @@ export interface ApiDevotionalDevotional extends Struct.CollectionTypeSchema {
   };
   attributes: {
     bodyContent: Schema.Attribute.RichText & Schema.Attribute.Required;
+    bodyTest: Schema.Attribute.Blocks;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
