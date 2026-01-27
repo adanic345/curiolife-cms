@@ -27,10 +27,10 @@ GraphQL:    https://YOUR-URL/graphql
 
 | Resource | List | Single Item |
 |----------|------|-------------|
-| Devotionals | `GET /devotionals` | `GET /devotionals/:id` |
-| Prayers | `GET /prayers` | `GET /prayers/:id` |
-| Studies | `GET /studies` | `GET /studies/:id` |
-| Challenges | `GET /challenges` | `GET /challenges/:id` |
+| Devotionals | `GET /devotionals` | `GET /devotionals/{documentId}` |
+| Prayers | `GET /prayers` | `GET /prayers/{documentId}` |
+| Studies | `GET /studies` | `GET /studies/{documentId}` |
+| Challenges | `GET /challenges` | `GET /challenges/{documentId}` |
 
 ---
 
@@ -43,7 +43,7 @@ GET /devotionals?fields[0]=title&fields[1]=subtitle&populate[featuredImage][fiel
 
 ### Detail View (Full Data)
 ```http
-GET /devotionals/:id?populate=*
+GET /devotionals/{documentId}?populate=*
 ```
 
 ### Filter

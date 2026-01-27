@@ -91,10 +91,10 @@ async function fetchDevotionals() {
 
 | Endpoint | Description | List | Single Item |
 |----------|-------------|------|-------------|
-| `/devotionals` | Daily spiritual reflections | GET | GET `/:id` |
-| `/prayers` | Guided prayer experiences | GET | GET `/:id` |
-| `/studies` | Multi-session learning tracks | GET | GET `/:id` |
-| `/challenges` | Time-bound spiritual campaigns | GET | GET `/:id` |
+| `/devotionals` | Daily spiritual reflections | GET | GET `/{documentId}` |
+| `/prayers` | Guided prayer experiences | GET | GET `/{documentId}` |
+| `/studies` | Multi-session learning tracks | GET | GET `/{documentId}` |
+| `/challenges` | Time-bound spiritual campaigns | GET | GET `/{documentId}` |
 
 ### REST API Pattern
 
@@ -704,7 +704,6 @@ interface ScriptureReference {
 interface Theme {
   name: string;
   description?: string;
-  category?: string;
 }
 
 interface Difficulty {
@@ -714,7 +713,7 @@ interface Difficulty {
 
 interface Duration {
   estimatedMinutes: number;
-  unit: string;
+  unit: 'minutes' | 'hours' | 'days';
 }
 
 interface MediaFile {
@@ -847,13 +846,13 @@ curl "https://YOUR-URL/api/devotionals?pagination[pageSize]=1" \
 ### Common Endpoints
 ```
 GET  /api/devotionals              # List all
-GET  /api/devotionals/:id          # Get single
+GET  /api/devotionals/{documentId} # Get single
 GET  /api/prayers                  # List all
-GET  /api/prayers/:id              # Get single
+GET  /api/prayers/{documentId}     # Get single
 GET  /api/studies                  # List all
-GET  /api/studies/:id              # Get single
+GET  /api/studies/{documentId}     # Get single
 GET  /api/challenges               # List all
-GET  /api/challenges/:id           # Get single
+GET  /api/challenges/{documentId}  # Get single
 ```
 
 ### Common Query Parameters
