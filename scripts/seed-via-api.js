@@ -4,9 +4,22 @@
 const fs = require('fs');
 const path = require('path');
 
-// Configuration
-const API_URL = process.env.STRAPI_API_URL || 'https://fantastic-dog-ea69a42711.strapiapp.com/api';
-const API_TOKEN = process.env.STRAPI_API_TOKEN || '61bc175984c5da5c3c2d63f4bae9afda57446c5325e898fdf123d65d30176128af1b288e5edbfe79509a2481e8bf8ebce410cfc6e0bb9449834f6d98746decc6d364671e6a9088c4c27d120dda49892a2fa2aec62681ddfeecdc5c9c92c654f87480a92511a296f7285a052a80609c4812d5256457425bdd2b1d7117fd16e2c7';
+// Configuration - DO NOT COMMIT API TOKENS!
+// Set these as environment variables instead
+const API_URL = process.env.STRAPI_API_URL || 'http://localhost:1337/api';
+const API_TOKEN = process.env.STRAPI_API_TOKEN;
+
+// Validate required environment variables
+if (!API_TOKEN) {
+  console.error('\n❌ ERROR: STRAPI_API_TOKEN environment variable is required!');
+  console.error('\nUsage:');
+  console.error('  STRAPI_API_TOKEN="your-token-here" npm run seed:api');
+  console.error('\nOr for production:');
+  console.error('  STRAPI_API_URL="https://your-domain.strapiapp.com/api" \\');
+  console.error('  STRAPI_API_TOKEN="your-token-here" \\');
+  console.error('  npm run seed:api\n');
+  process.exit(1);
+}
 
 // Load seed data
 const seedDataPath = path.join(__dirname, '../data/curiolife-seed-data.json');

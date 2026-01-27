@@ -6,7 +6,7 @@ Your current API token only has **read** permissions. To seed via API, you need 
 
 ## Step 1: Create a Full-Access API Token
 
-1. Go to your admin panel: https://fantastic-dog-ea69a42711.strapiapp.com/admin
+1. Go to your admin panel: https://YOUR-STRAPI-URL.strapiapp.com/admin
 2. Navigate to **Settings → API Tokens → Create new API Token**
 3. Configure the token:
    - **Name**: `Seeding Token` (or any name)
@@ -31,7 +31,7 @@ STRAPI_API_TOKEN="your-new-token-here" npm run seed:api
 Create a `.env.local` file:
 
 ```bash
-STRAPI_API_URL=https://fantastic-dog-ea69a42711.strapiapp.com/api
+STRAPI_API_URL=https://YOUR-STRAPI-URL.strapiapp.com/api
 STRAPI_API_TOKEN=your-new-token-here
 ```
 
@@ -49,24 +49,24 @@ After seeding, verify via API:
 
 ```bash
 # Get devotionals (should return 3)
-curl "https://fantastic-dog-ea69a42711.strapiapp.com/api/devotionals" \
+curl "https://YOUR-STRAPI-URL.strapiapp.com/api/devotionals" \
   -H "Authorization: Bearer YOUR_READ_TOKEN"
 
 # Get prayers (should return 3)
-curl "https://fantastic-dog-ea69a42711.strapiapp.com/api/prayers" \
+curl "https://YOUR-STRAPI-URL.strapiapp.com/api/prayers" \
   -H "Authorization: Bearer YOUR_READ_TOKEN"
 
 # Get studies (should return 2)
-curl "https://fantastic-dog-ea69a42711.strapiapp.com/api/studies" \
+curl "https://YOUR-STRAPI-URL.strapiapp.com/api/studies" \
   -H "Authorization: Bearer YOUR_READ_TOKEN"
 
 # Get challenges (should return 2)
-curl "https://fantastic-dog-ea69a42711.strapiapp.com/api/challenges" \
+curl "https://YOUR-STRAPI-URL.strapiapp.com/api/challenges" \
   -H "Authorization: Bearer YOUR_READ_TOKEN"
 ```
 
 Or check the admin panel:
-- https://fantastic-dog-ea69a42711.strapiapp.com/admin
+- https://YOUR-STRAPI-URL.strapiapp.com/admin
 - Go to **Content Manager** and verify all content types have entries
 
 ---
