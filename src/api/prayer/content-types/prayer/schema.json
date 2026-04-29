@@ -89,13 +89,13 @@
       "required": false,
       "allowedTypes": ["images"]
     },
-    "tags": {
-      "type": "json"
-    },
     "externalMedia": {
       "type": "component",
       "repeatable": false,
       "component": "shared.external-media"
+    },
+    "tags": {
+      "type": "json"
     }
   }
 }
