@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "devotional_progresses",
+  "info": {
+    "singularName": "devotional-progress",
+    "pluralName": "devotional-progresses",
+    "displayName": "Devotional Progress"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "required": true
+    },
+    "devotional": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::devotional.devotional",
+      "required": true
+    },
+    "completedAt": { "type": "datetime" },
+    "timeSpentSeconds": { "type": "integer" }
+  }
+}

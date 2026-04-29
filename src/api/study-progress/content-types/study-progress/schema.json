@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "study_progresses",
+  "info": {
+    "singularName": "study-progress",
+    "pluralName": "study-progresses",
+    "displayName": "Study Progress"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "required": true
+    },
+    "study": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::study.study",
+      "required": true
+    },
+    "currentDay": { "type": "integer", "default": 1 },
+    "startedAt": { "type": "datetime" },
+    "completedAt": { "type": "datetime" },
+    "sessionsCompleted": { "type": "json" }
+  }
+}

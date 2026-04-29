@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bible_reading_logs",
+  "info": {
+    "singularName": "bible-reading-log",
+    "pluralName": "bible-reading-logs",
+    "displayName": "Bible Reading Log"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "required": true
+    },
+    "book": { "type": "string", "required": true },
+    "chapter": { "type": "integer", "required": true },
+    "translation": { "type": "string" },
+    "readAt": { "type": "datetime", "required": true }
+  }
+}

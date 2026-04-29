@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prayer_logs",
+  "info": {
+    "singularName": "prayer-log",
+    "pluralName": "prayer-logs",
+    "displayName": "Prayer Log"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "required": true
+    },
+    "prayer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::prayer.prayer"
+    },
+    "prayedAt": { "type": "datetime", "required": true },
+    "durationSeconds": { "type": "integer" },
+    "intention": { "type": "text" }
+  }
+}
