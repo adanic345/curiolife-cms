@@ -91,6 +91,11 @@
     },
     "tags": {
       "type": "json"
+    },
+    "externalMedia": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.external-media"
     }
   }
 }

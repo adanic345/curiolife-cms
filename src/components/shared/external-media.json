@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_shared_external_media",
+  "info": {
+    "displayName": "External Media",
+    "description": "Optional external audio/video link"
+  },
+  "attributes": {
+    "mediaType": {
+      "type": "enumeration",
+      "enum": ["audio", "video"],
+      "required": true
+    },
+    "provider": {
+      "type": "enumeration",
+      "enum": ["youtube", "vimeo", "direct"],
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "text"
+    }
+  }
+}
