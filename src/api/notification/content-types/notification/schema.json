@@ -15,8 +15,9 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "required": true
+      "required": false
     },
+    "broadcast": { "type": "boolean", "default": false },
     "title": { "type": "string", "required": true },
     "body": { "type": "text", "required": true },
     "type": {
@@ -25,6 +26,7 @@
       "required": true
     },
     "relatedContentId": { "type": "string" },
+    "scheduledAt": { "type": "datetime" },
     "isRead": { "type": "boolean", "default": false }
   }
 }

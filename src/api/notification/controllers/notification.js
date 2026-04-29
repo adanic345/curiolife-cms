@@ -7,9 +7,27 @@ module.exports = createCoreController('api::notification.notification', () => ({
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
+    // Return personal notifications for this user + all broadcast notifications.
+    // scheduledAt: only return notifications that are due (null or in the past).
+    const now = new Date().toISOString();
     ctx.query = {
       ...ctx.query,
-      filters: { ...ctx.query.filters, user: { id: userId } },
+      filters: {
+        $and: [
+          {
+            $or: [
+              { scheduledAt: { $null: true } },
+              { scheduledAt: { $lte: now } },
+            ],
+          },
+          {
+            $or: [
+              { user: { id: { $eq: userId } } },
+              { broadcast: { $eq: true } },
+            ],
+          },
+        ],
+      },
       sort: ['createdAt:desc'],
     };
     return super.find(ctx);
@@ -25,7 +43,9 @@ module.exports = createCoreController('api::notification.notification', () => ({
       populate: ['user'],
     });
 
-    if (!entry || entry.user?.id !== userId) return ctx.forbidden();
+    // Allow marking read if it's the user's own notification or a broadcast
+    if (!entry) return ctx.notFound();
+    if (!entry.broadcast && entry.user?.id !== userId) return ctx.forbidden();
 
     const updated = await strapi.documents('api::notification.notification').update({
       documentId: ctx.params.documentId,
@@ -40,8 +60,25 @@ module.exports = createCoreController('api::notification.notification', () => ({
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
+    const now = new Date().toISOString();
     const unread = await strapi.documents('api::notification.notification').findMany({
-      filters: { user: { id: userId }, isRead: { $eq: false } },
+      filters: {
+        $and: [
+          { isRead: { $eq: false } },
+          {
+            $or: [
+              { scheduledAt: { $null: true } },
+              { scheduledAt: { $lte: now } },
+            ],
+          },
+          {
+            $or: [
+              { user: { id: { $eq: userId } } },
+              { broadcast: { $eq: true } },
+            ],
+          },
+        ],
+      },
     });
 
     await Promise.all(
