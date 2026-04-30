@@ -7,11 +7,17 @@ module.exports = createCoreController('api::prayer-log.prayer-log', () => ({
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    ctx.query = {
-      ...ctx.query,
-      filters: { ...ctx.query.filters, user: { id: userId } },
-    };
-    return super.find(ctx);
+    const { page = 1, pageSize = 50 } = ctx.query.pagination ?? {};
+
+    const entries = await strapi.documents('api::prayer-log.prayer-log').findMany({
+      filters: { user: { id: userId } },
+      populate: ['prayer'],
+      sort: ['prayedAt:desc'],
+      start: (page - 1) * pageSize,
+      limit: pageSize,
+    });
+
+    return { data: entries };
   },
 
   async create(ctx) {
@@ -60,6 +66,10 @@ module.exports = createCoreController('api::prayer-log.prayer-log', () => ({
 
     if (!entry || entry.user?.id !== userId) return ctx.forbidden();
 
-    return super.delete(ctx);
+    await strapi.documents('api::prayer-log.prayer-log').delete({
+      documentId: ctx.params.documentId,
+    });
+
+    return { data: { documentId: ctx.params.documentId } };
   },
 }));

@@ -7,12 +7,16 @@ module.exports = createCoreController('api::bible-reading-log.bible-reading-log'
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    ctx.query = {
-      ...ctx.query,
-      filters: { ...ctx.query.filters, user: { id: userId } },
+    const { page = 1, pageSize = 50 } = ctx.query.pagination ?? {};
+
+    const entries = await strapi.documents('api::bible-reading-log.bible-reading-log').findMany({
+      filters: { user: { id: userId } },
       sort: ['readAt:desc'],
-    };
-    return super.find(ctx);
+      start: (page - 1) * pageSize,
+      limit: pageSize,
+    });
+
+    return { data: entries };
   },
 
   async create(ctx) {

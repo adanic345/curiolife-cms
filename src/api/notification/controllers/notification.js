@@ -7,11 +7,9 @@ module.exports = createCoreController('api::notification.notification', () => ({
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    // Return personal notifications for this user + all broadcast notifications.
-    // scheduledAt: only return notifications that are due (null or in the past).
     const now = new Date().toISOString();
-    ctx.query = {
-      ...ctx.query,
+
+    const entries = await strapi.documents('api::notification.notification').findMany({
       filters: {
         $and: [
           {
@@ -29,11 +27,11 @@ module.exports = createCoreController('api::notification.notification', () => ({
         ],
       },
       sort: ['createdAt:desc'],
-    };
-    return super.find(ctx);
+    });
+
+    return { data: entries };
   },
 
-  // PUT /notifications/:documentId/read
   async markRead(ctx) {
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
@@ -43,7 +41,6 @@ module.exports = createCoreController('api::notification.notification', () => ({
       populate: ['user'],
     });
 
-    // Allow marking read if it's the user's own notification or a broadcast
     if (!entry) return ctx.notFound();
     if (!entry.broadcast && entry.user?.id !== userId) return ctx.forbidden();
 
@@ -55,12 +52,12 @@ module.exports = createCoreController('api::notification.notification', () => ({
     return { data: updated };
   },
 
-  // PUT /notifications/read-all
   async markAllRead(ctx) {
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
     const now = new Date().toISOString();
+
     const unread = await strapi.documents('api::notification.notification').findMany({
       filters: {
         $and: [

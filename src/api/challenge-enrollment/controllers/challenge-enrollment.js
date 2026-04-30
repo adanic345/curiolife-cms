@@ -7,12 +7,13 @@ module.exports = createCoreController('api::challenge-enrollment.challenge-enrol
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    ctx.query = {
-      ...ctx.query,
-      filters: { ...ctx.query.filters, user: { id: userId } },
-      populate: { challenge: true, ...ctx.query.populate },
-    };
-    return super.find(ctx);
+    const entries = await strapi.documents('api::challenge-enrollment.challenge-enrollment').findMany({
+      filters: { user: { id: userId } },
+      populate: ['challenge'],
+      sort: ['enrolledAt:desc'],
+    });
+
+    return { data: entries };
   },
 
   async create(ctx) {
@@ -70,6 +71,10 @@ module.exports = createCoreController('api::challenge-enrollment.challenge-enrol
 
     if (!existing || existing.user?.id !== userId) return ctx.forbidden();
 
-    return super.delete(ctx);
+    await strapi.documents('api::challenge-enrollment.challenge-enrollment').delete({
+      documentId: ctx.params.documentId,
+    });
+
+    return { data: { documentId: ctx.params.documentId } };
   },
 }));

@@ -7,11 +7,13 @@ module.exports = createCoreController('api::study-progress.study-progress', () =
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    ctx.query = {
-      ...ctx.query,
-      filters: { ...ctx.query.filters, user: { id: userId } },
-    };
-    return super.find(ctx);
+    const entries = await strapi.documents('api::study-progress.study-progress').findMany({
+      filters: { user: { id: userId } },
+      populate: ['study'],
+      sort: ['startedAt:desc'],
+    });
+
+    return { data: entries };
   },
 
   async create(ctx) {

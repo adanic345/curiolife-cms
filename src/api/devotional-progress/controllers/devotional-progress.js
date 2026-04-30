@@ -7,11 +7,13 @@ module.exports = createCoreController('api::devotional-progress.devotional-progr
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    ctx.query = {
-      ...ctx.query,
-      filters: { ...ctx.query.filters, user: { id: userId } },
-    };
-    return super.find(ctx);
+    const entries = await strapi.documents('api::devotional-progress.devotional-progress').findMany({
+      filters: { user: { id: userId } },
+      populate: ['devotional'],
+      sort: ['completedAt:desc'],
+    });
+
+    return { data: entries };
   },
 
   async create(ctx) {

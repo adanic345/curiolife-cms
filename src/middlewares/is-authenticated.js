@@ -1,8 +1,8 @@
 'use strict';
 
-// Custom middleware that validates a JWT and populates ctx.state.user
-// without going through the users-permissions action registry.
-// Apply to any route with: auth: false, middlewares: ['global::is-authenticated']
+// Validates a JWT, sets ctx.state.user, and strips the `user` field from
+// the request body so the sanitizer never sees it — our controllers always
+// force user to ctx.state.user.id server-side.
 module.exports = (config, { strapi }) => async (ctx, next) => {
   const authHeader = ctx.request.headers.authorization;
 
@@ -27,6 +27,12 @@ module.exports = (config, { strapi }) => async (ctx, next) => {
     }
 
     ctx.state.user = user;
+
+    // Strip `user` from body so Strapi's sanitizer doesn't reject it
+    if (ctx.request.body?.data && typeof ctx.request.body.data === 'object') {
+      delete ctx.request.body.data.user;
+    }
+
     return next();
   } catch {
     return ctx.unauthorized('Invalid or expired token');
