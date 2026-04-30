@@ -18,19 +18,21 @@ module.exports = createCoreController('api::prayer-log.prayer-log', () => ({
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    const { prayerDocumentId, ...rest } = ctx.request.body.data ?? {};
-    ctx.request.body.data = {
-      ...rest,
-      user: userId,
-      ...(prayerDocumentId ? { prayer: prayerDocumentId } : {}),
-    };
+    const { prayerDocumentId, prayer, prayedAt, durationSeconds, intention } = ctx.request.body.data ?? {};
 
-    const result = await super.create(ctx);
+    const entry = await strapi.documents('api::prayer-log.prayer-log').create({
+      data: {
+        user: userId,
+        prayer: prayerDocumentId ?? prayer,
+        prayedAt: prayedAt ?? new Date().toISOString(),
+        durationSeconds,
+        intention,
+      },
+    });
 
-    // Update streak after logging a prayer
     await strapi.service('api::streak.streak').recordActivity(userId);
 
-    return result;
+    return { data: entry };
   },
 
   async findOne(ctx) {

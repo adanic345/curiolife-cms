@@ -19,16 +19,20 @@ module.exports = createCoreController('api::bible-reading-log.bible-reading-log'
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    ctx.request.body.data = {
-      ...ctx.request.body.data,
-      user: userId,
-      readAt: ctx.request.body.data.readAt ?? new Date().toISOString(),
-    };
+    const { book, chapter, translation, readAt } = ctx.request.body.data ?? {};
 
-    const result = await super.create(ctx);
+    const entry = await strapi.documents('api::bible-reading-log.bible-reading-log').create({
+      data: {
+        user: userId,
+        book,
+        chapter,
+        translation,
+        readAt: readAt ?? new Date().toISOString(),
+      },
+    });
 
     await strapi.service('api::streak.streak').recordActivity(userId);
 
-    return result;
+    return { data: entry };
   },
 }));

@@ -18,31 +18,40 @@ module.exports = createCoreController('api::devotional-progress.devotional-progr
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    const { devotionalDocumentId, ...rest } = ctx.request.body.data ?? {};
-    ctx.request.body.data = {
-      ...rest,
-      user: userId,
-      ...(devotionalDocumentId ? { devotional: devotionalDocumentId } : {}),
-    };
+    const { devotionalDocumentId, devotional, completedAt, timeSpentSeconds } = ctx.request.body.data ?? {};
 
-    const result = await super.create(ctx);
+    const entry = await strapi.documents('api::devotional-progress.devotional-progress').create({
+      data: {
+        user: userId,
+        devotional: devotionalDocumentId ?? devotional,
+        completedAt: completedAt ?? new Date().toISOString(),
+        timeSpentSeconds,
+      },
+    });
 
     await strapi.service('api::streak.streak').recordActivity(userId);
 
-    return result;
+    return { data: entry };
   },
 
   async update(ctx) {
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    const entry = await strapi.documents('api::devotional-progress.devotional-progress').findOne({
+    const existing = await strapi.documents('api::devotional-progress.devotional-progress').findOne({
       documentId: ctx.params.documentId,
       populate: ['user'],
     });
 
-    if (!entry || entry.user?.id !== userId) return ctx.forbidden();
+    if (!existing || existing.user?.id !== userId) return ctx.forbidden();
 
-    return super.update(ctx);
+    const { completedAt, timeSpentSeconds } = ctx.request.body.data ?? {};
+
+    const entry = await strapi.documents('api::devotional-progress.devotional-progress').update({
+      documentId: ctx.params.documentId,
+      data: { completedAt, timeSpentSeconds },
+    });
+
+    return { data: entry };
   },
 }));

@@ -18,36 +18,45 @@ module.exports = createCoreController('api::study-progress.study-progress', () =
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    const { studyDocumentId, ...rest } = ctx.request.body.data ?? {};
-    ctx.request.body.data = {
-      ...rest,
-      user: userId,
-      ...(studyDocumentId ? { study: studyDocumentId } : {}),
-    };
+    const { studyDocumentId, study, currentDay, startedAt, sessionsCompleted } = ctx.request.body.data ?? {};
 
-    const result = await super.create(ctx);
+    const entry = await strapi.documents('api::study-progress.study-progress').create({
+      data: {
+        user: userId,
+        study: studyDocumentId ?? study,
+        currentDay: currentDay ?? 1,
+        startedAt: startedAt ?? new Date().toISOString(),
+        sessionsCompleted: sessionsCompleted ?? [],
+      },
+    });
 
     await strapi.service('api::streak.streak').recordActivity(userId);
 
-    return result;
+    return { data: entry };
   },
 
   async update(ctx) {
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    const entry = await strapi.documents('api::study-progress.study-progress').findOne({
+    const existing = await strapi.documents('api::study-progress.study-progress').findOne({
       documentId: ctx.params.documentId,
       populate: ['user'],
     });
 
-    if (!entry || entry.user?.id !== userId) return ctx.forbidden();
+    if (!existing || existing.user?.id !== userId) return ctx.forbidden();
 
-    // Trigger streak when a session completion is recorded
-    if (ctx.request.body.data?.sessionsCompleted) {
+    const { currentDay, sessionsCompleted, completedAt } = ctx.request.body.data ?? {};
+
+    const entry = await strapi.documents('api::study-progress.study-progress').update({
+      documentId: ctx.params.documentId,
+      data: { currentDay, sessionsCompleted, completedAt },
+    });
+
+    if (sessionsCompleted) {
       await strapi.service('api::streak.streak').recordActivity(userId);
     }
 
-    return super.update(ctx);
+    return { data: entry };
   },
 }));
