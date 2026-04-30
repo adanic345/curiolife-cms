@@ -12,7 +12,7 @@
     },
     "provider": {
       "type": "enumeration",
-      "enum": ["youtube", "vimeo", "direct"],
+      "enum": ["youtube", "vimeo", "subsplash", "direct"],
       "required": true
     },
     "url": {

@@ -16,8 +16,11 @@ function stripEmbedUrl(rawUrl) {
     }
 
     if (host === 'vimeo.com') {
-      // Keep only the path (video ID), drop all query params
       return `https://vimeo.com${parsed.pathname}`;
+    }
+
+    if (host === 'subsplash.com') {
+      return `https://subsplash.com${parsed.pathname}`;
     }
 
     // For direct URLs, return as-is
