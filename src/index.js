@@ -52,6 +52,10 @@ const AUTHENTICATED_PERMISSIONS = [
   // Bible Reading Log
   'api::bible-reading-log.bible-reading-log.find',
   'api::bible-reading-log.bible-reading-log.create',
+
+  // Me (profile update)
+  'api::me.me.find',
+  'api::me.me.update',
 ];
 
 async function ensureAuthenticatedPermissions(strapi) {
