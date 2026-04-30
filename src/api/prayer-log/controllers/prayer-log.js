@@ -18,8 +18,12 @@ module.exports = createCoreController('api::prayer-log.prayer-log', () => ({
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    // Force user to the authenticated user regardless of what the client sends
-    ctx.request.body.data = { ...ctx.request.body.data, user: userId };
+    const { prayerDocumentId, ...rest } = ctx.request.body.data ?? {};
+    ctx.request.body.data = {
+      ...rest,
+      user: userId,
+      ...(prayerDocumentId ? { prayer: prayerDocumentId } : {}),
+    };
 
     const result = await super.create(ctx);
 
