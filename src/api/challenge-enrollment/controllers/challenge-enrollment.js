@@ -28,6 +28,20 @@ module.exports = createCoreController('api::challenge-enrollment.challenge-enrol
     return super.create(ctx);
   },
 
+  async delete(ctx) {
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized();
+
+    const entry = await strapi.documents('api::challenge-enrollment.challenge-enrollment').findOne({
+      documentId: ctx.params.documentId,
+      populate: ['user'],
+    });
+
+    if (!entry || entry.user?.id !== userId) return ctx.forbidden();
+
+    return super.delete(ctx);
+  },
+
   async update(ctx) {
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();

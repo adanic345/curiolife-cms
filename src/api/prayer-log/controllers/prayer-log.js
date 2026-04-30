@@ -29,6 +29,20 @@ module.exports = createCoreController('api::prayer-log.prayer-log', () => ({
     return result;
   },
 
+  async findOne(ctx) {
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized();
+
+    const entry = await strapi.documents('api::prayer-log.prayer-log').findOne({
+      documentId: ctx.params.documentId,
+      populate: ['user', 'prayer'],
+    });
+
+    if (!entry || entry.user?.id !== userId) return ctx.forbidden();
+
+    return { data: entry };
+  },
+
   async delete(ctx) {
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();

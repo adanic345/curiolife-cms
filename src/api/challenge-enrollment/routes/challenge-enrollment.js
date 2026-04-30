@@ -20,5 +20,11 @@ module.exports = {
       handler: 'challenge-enrollment.update',
       config: { policies: [] },
     },
+    {
+      method: 'DELETE',
+      path: '/challenge-enrollments/:documentId',
+      handler: 'challenge-enrollment.delete',
+      config: { policies: [] },
+    },
   ],
 };

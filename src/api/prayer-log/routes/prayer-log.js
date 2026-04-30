@@ -15,6 +15,12 @@ module.exports = {
       config: { policies: [] },
     },
     {
+      method: 'GET',
+      path: '/prayer-logs/:documentId',
+      handler: 'prayer-log.findOne',
+      config: { policies: [] },
+    },
+    {
       method: 'DELETE',
       path: '/prayer-logs/:documentId',
       handler: 'prayer-log.delete',
