@@ -34,6 +34,11 @@
       "type": "integer",
       "min": 1,
       "default": 15
+    },
+    "externalMedia": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.external-media"
     }
   }
 }

@@ -31,6 +31,15 @@ function cleanExternalMediaUrl(data) {
   if (data?.externalMedia?.url) {
     data.externalMedia.url = stripEmbedUrl(data.externalMedia.url);
   }
+
+  // Clean externalMedia on each session if present
+  if (Array.isArray(data?.sessions)) {
+    for (const session of data.sessions) {
+      if (session?.externalMedia?.url) {
+        session.externalMedia.url = stripEmbedUrl(session.externalMedia.url);
+      }
+    }
+  }
 }
 
 module.exports = { cleanExternalMediaUrl, stripEmbedUrl };
