@@ -6,7 +6,7 @@ module.exports = {
       method: 'GET',
       path: '/streaks/me',
       handler: 'streak.findMe',
-      config: { policies: [] },
+      config: { auth: false, middlewares: ['global::is-authenticated'] },
     },
   ],
 };
