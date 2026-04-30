@@ -1,21 +1,13 @@
 'use strict';
 
-// Permissions that must exist for the `authenticated` role.
-// Bootstrap ensures these are present on every startup — idempotent, safe to re-run.
 const AUTHENTICATED_PERMISSIONS = [
-  // Prayer
+  // Content — read only
   'api::prayer.prayer.find',
   'api::prayer.prayer.findOne',
-
-  // Devotional
   'api::devotional.devotional.find',
   'api::devotional.devotional.findOne',
-
-  // Study
   'api::study.study.find',
   'api::study.study.findOne',
-
-  // Challenge
   'api::challenge.challenge.find',
   'api::challenge.challenge.findOne',
 
@@ -53,43 +45,49 @@ const AUTHENTICATED_PERMISSIONS = [
   'api::bible-reading-log.bible-reading-log.find',
   'api::bible-reading-log.bible-reading-log.create',
 
-  // Me (profile update)
+  // Me
   'api::me.me.find',
   'api::me.me.update',
 ];
 
 async function ensureAuthenticatedPermissions(strapi) {
-  const authenticatedRole = await strapi
+  // Use strapi.db.query for reliable relation handling in Strapi 5
+  const authenticatedRole = await strapi.db
     .query('plugin::users-permissions.role')
     .findOne({ where: { type: 'authenticated' } });
 
   if (!authenticatedRole) {
-    strapi.log.warn('Could not find authenticated role — skipping permission bootstrap');
+    strapi.log.warn('[permissions] authenticated role not found — skipping');
     return;
   }
 
-  const existing = await strapi
+  strapi.log.info(`[permissions] authenticated role id: ${authenticatedRole.id}`);
+
+  const existing = await strapi.db
     .query('plugin::users-permissions.permission')
-    .findMany({ where: { role: authenticatedRole.id } });
+    .findMany({ where: { role: { id: authenticatedRole.id } } });
 
   const existingActions = new Set(existing.map((p) => p.action));
+  strapi.log.info(`[permissions] ${existingActions.size} permissions already on authenticated role`);
 
-  const toCreate = AUTHENTICATED_PERMISSIONS.filter((action) => !existingActions.has(action));
+  const toCreate = AUTHENTICATED_PERMISSIONS.filter((a) => !existingActions.has(a));
 
   if (toCreate.length === 0) {
-    strapi.log.info('Authenticated permissions already up to date');
+    strapi.log.info('[permissions] all permissions already present');
     return;
   }
+
+  strapi.log.info(`[permissions] granting ${toCreate.length} missing permission(s): ${toCreate.join(', ')}`);
 
   await Promise.all(
     toCreate.map((action) =>
-      strapi.query('plugin::users-permissions.permission').create({
+      strapi.db.query('plugin::users-permissions.permission').create({
         data: { action, role: authenticatedRole.id },
       })
     )
   );
 
-  strapi.log.info(`Granted ${toCreate.length} permission(s) to authenticated role: ${toCreate.join(', ')}`);
+  strapi.log.info('[permissions] done');
 }
 
 module.exports = {
