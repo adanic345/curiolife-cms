@@ -18,7 +18,12 @@ module.exports = createCoreController('api::study-progress.study-progress', () =
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    ctx.request.body.data = { ...ctx.request.body.data, user: userId };
+    const { studyDocumentId, ...rest } = ctx.request.body.data ?? {};
+    ctx.request.body.data = {
+      ...rest,
+      user: userId,
+      ...(studyDocumentId ? { study: studyDocumentId } : {}),
+    };
 
     const result = await super.create(ctx);
 

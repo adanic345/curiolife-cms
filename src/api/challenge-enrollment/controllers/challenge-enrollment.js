@@ -19,10 +19,12 @@ module.exports = createCoreController('api::challenge-enrollment.challenge-enrol
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
+    const { challengeDocumentId, ...rest } = ctx.request.body.data ?? {};
     ctx.request.body.data = {
-      ...ctx.request.body.data,
+      ...rest,
       user: userId,
-      enrolledAt: ctx.request.body.data.enrolledAt ?? new Date().toISOString(),
+      enrolledAt: rest.enrolledAt ?? new Date().toISOString(),
+      ...(challengeDocumentId ? { challenge: challengeDocumentId } : {}),
     };
 
     return super.create(ctx);

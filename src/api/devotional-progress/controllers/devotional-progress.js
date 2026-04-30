@@ -18,7 +18,12 @@ module.exports = createCoreController('api::devotional-progress.devotional-progr
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized();
 
-    ctx.request.body.data = { ...ctx.request.body.data, user: userId };
+    const { devotionalDocumentId, ...rest } = ctx.request.body.data ?? {};
+    ctx.request.body.data = {
+      ...rest,
+      user: userId,
+      ...(devotionalDocumentId ? { devotional: devotionalDocumentId } : {}),
+    };
 
     const result = await super.create(ctx);
 
